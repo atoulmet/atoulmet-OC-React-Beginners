@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { plantList } from '../datas/plantList'
 import PlantItem from './PlantItem'
+import Categories from './Categories'
 import '../styles/ShoppingList.css'
 
 function ShoppingList({ cart, updateCart }) {
-	const [activeCategory, setActiveCategory] = useState(null)
+	const [activeCategory, setActiveCategory] = useState('')
 	const categories = plantList.reduce(
 		(acc, elem) =>
 			acc.includes(elem.category) ? acc : acc.concat(elem.category),
@@ -22,17 +23,13 @@ function ShoppingList({ cart, updateCart }) {
 
 	return (
 		<div>
-			<select
-				name='categories'
-				onChange={(e) => setActiveCategory(e.target.value)}
-			>
-				{categories.map((category) => (
-					<option key={category} value={category}>
-						{category}
-					</option>
-				))}
-			</select>
-			<button onClick={() => setActiveCategory(null)}>Réinitialiser</button>
+			<Categories
+				categories={categories}
+				setActiveCategory={setActiveCategory}
+				activeCategory={activeCategory}
+			/>
+
+			<button onClick={() => setActiveCategory('')}>Réinitialiser</button>
 			<ul className='lmj-plant-list'>
 				{plantList.map(({ id, cover, name, water, light, category, price }) => {
 					return !activeCategory || activeCategory === category ? (
