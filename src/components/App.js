@@ -9,6 +9,7 @@ import '../styles/App.css'
 
 function App() {
 	const [cart, updateCart] = useState({})
+
 	return (
 		<div>
 			<Banner>

@@ -1,6 +1,24 @@
 import { useEffect, useState } from 'react'
 import '../styles/Cart.css'
 
+// function ClosedCart({ setIsOpen }) {
+// 	useEffect(() => {
+// 		alert('ClosedCart apparaît')
+// 		return () => alert('ClosedCart disparait')
+// 	})
+
+// 	return (
+// 		<div className='lmj-cart-closed'>
+// 			<button
+// 				className='lmj-cart-toggle-button'
+// 				onClick={() => setIsOpen(true)}
+// 			>
+// 				Ouvrir le Panier
+// 			</button>
+// 		</div>
+// 	)
+// }
+
 function Cart({ cart, updateCart }) {
 	const [isOpen, setIsOpen] = useState(true)
 
@@ -9,9 +27,12 @@ function Cart({ cart, updateCart }) {
 		(acc, item) => acc + cart[item].amount * cart[item].price,
 		0
 	)
+
 	useEffect(() => {
-		alert(`J'aurai ${total}€ à payer 💸`)
-	})
+		document.title = `LMJ: ${total}€ d'achats`
+	}, [total])
+
+	useEffect(() => {})
 
 	return isOpen ? (
 		<div className='lmj-cart'>
